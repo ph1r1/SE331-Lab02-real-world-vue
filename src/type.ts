@@ -12,10 +12,3 @@ export interface EventItem {
   surname: string
   gpa: number
 }
-
-export interface StudentItem {
-  id: number
-  name: string
-  surname: string
-  gpa: number
-}
