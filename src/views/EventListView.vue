@@ -22,6 +22,8 @@ EventService.getEvent(2, props.page).then((response) => {
   <h1>Events For Good</h1>
   <main class="events">
     <EventCard v-for="event in events" :key="event.id" :event="event"></EventCard>
+    <RouterLink :to="{ name: 'event-list', query: { page: page - 1 } }" rel="prev" v-if="page != 1">Prev Page</RouterLink>
+    <RouterLink :to="{ name: 'event-list', query: { page: page + 1 } }" rel="next" v-if="page">Next Page</RouterLink>
   </main>
 </template>
 
