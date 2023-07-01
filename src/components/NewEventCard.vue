@@ -1,8 +1,8 @@
 <template>
   <div class="event-class">
     <div class="event-card">
-      <h4>{{ event.category }}</h4>
-      <h4>{{ event.organizer }}</h4>
+      <span>{{ event.name }} {{ event.surname }}</span>
+      <h4>GPA: {{ event.gpa }}</h4>
     </div>
   </div>
 </template>
@@ -26,7 +26,6 @@ const props = defineProps({
   cursor: pointer;
   border: 1px solid #39495c;
   margin-bottom: 18px;
-  text-align: right;
 }
 .event-card:hover {
   transform: scale(1.01);
