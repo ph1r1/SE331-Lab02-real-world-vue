@@ -1,20 +1,20 @@
 <template>
   <div class="event-class">
     <div class="event-card">
-      <span>{{ event.name }} {{ event.surname }}</span>
-      <h4>GPA: {{ event.gpa }}</h4>
+      <span>{{ student.name }} {{ student.surname }}</span>
+      <h4>GPA: {{ student.gpa }}</h4>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { EventItem } from '@/type'
+import type { StudentItem } from '@/type'
 import type { PropType } from 'vue'
 
 const props = defineProps({
-  event: {
-    type: Object as PropType<EventItem>,
-    require: true
+  student: {
+    type: Object as PropType<StudentItem>,
+    required: true
   }
 })
 </script>
