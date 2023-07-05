@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import EventCard from '../components/EventCard.vue'
 import type { EventItem } from '@/type'
-import { ref, watchEffect, computed } from 'vue'
+import { ref, computed } from 'vue'
 import type { Ref } from 'vue'
 import EventService from '@/services/EventService'
+import NProgress from 'nprogress'
+import { useRouter, onBeforeRouteUpdate } from 'vue-router'
+import type { AxiosResponse } from 'axios'
 
 const events: Ref<Array<EventItem>> = ref([])
 const totalEvent = ref<number>(0)
-const perPage = ref<number>(2)
+const router = useRouter()
 
 const props = defineProps({
   page: {
@@ -16,15 +19,38 @@ const props = defineProps({
   }
 })
 
-watchEffect(() => {
-  EventService.getEvent(perPage.value, props.page).then((response) => {
+NProgress.start()
+EventService.getEvent(2, props.page)
+  .then((response) => {
     events.value = response.data
     totalEvent.value = response.headers['x-total-count']
   })
+  .catch(() => {
+    router.push({ name: 'NetworkError' })
+  })
+  .finally(() => {
+    NProgress.done()
+  })
+
+onBeforeRouteUpdate((to, from, next) => {
+  const toPage = Number(to.query.page)
+  NProgress.start()
+  EventService.getEvent(2, toPage)
+    .then((response: AxiosResponse<EventItem[]>) => {
+      events.value = response.data
+      totalEvent.value = response.headers['x-total-count']
+      next()
+    })
+    .catch(() => {
+      router.push({ name: 'NetworkError' })
+    })
+    .finally(() => {
+      NProgress.done()
+    })
 })
 
 const hasNextPage = computed(() => {
-  const totalPages = Math.ceil(totalEvent.value / perPage.value)
+  const totalPages = Math.ceil(totalEvent.value / 2)
   return props.page.valueOf() < totalPages
 })
 </script>
@@ -32,14 +58,6 @@ const hasNextPage = computed(() => {
 <template>
   <h1>Events For Good</h1>
   <main class="events">
-    <div class="per-page-select">
-      <label for="per-page">Events per page: </label>
-      <select id="per-page" v-model="perPage">
-        <option value="2">2</option>
-        <option value="4">4</option>
-        <option value="6">6</option>
-      </select>
-    </div>
     <EventCard v-for="event in events" :key="event.id" :event="event"></EventCard>
     <div class="pagination">
       <RouterLink
@@ -80,8 +98,5 @@ const hasNextPage = computed(() => {
 }
 #page-next {
   text-align: right;
-}
-.per-page-select {
-  margin-bottom: 20px;
 }
 </style>
