@@ -9,59 +9,14 @@ const { message } = storeToRefs(store)
 
 <template>
   <header class="max-h-screen leading-normal">
-    <div id="flashMessage" v-if="message">
-      <h4>{{ message }}</h4>
+    <div v-if="message" class="animate-yellowfade">
+      <h4 class="text-[20px]">{{ message }}</h4>
     </div>
-    <nav>
-      <RouterLink :to="{ name: 'event-list' }">Home</RouterLink> |
-      <RouterLink :to="{ name: 'about' }">About</RouterLink>
+    <nav class="p-[30px] font-bold text-[#2c3e50]">
+      <RouterLink :to="{ name: 'event-list' }" :class="{ 'text-green-500': $route.name === 'event-list' }">Home</RouterLink> |
+      <RouterLink :to="{ name: 'about' }" :class="{ 'text-[#42b983]': $route.name === 'about' }">About</RouterLink>
     </nav>
   </header>
 
   <RouterView />
 </template>
-
-<style scoped>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-h4 {
-  font-size: 20px;
-}
-
-@keyframes yellowfade {
-  from {
-    background: yellow;
-  }
-  to {
-    background: transparent;
-  }
-}
-
-#flashMessage {
-  animation: yellowfade 3s ease-in-out;
-}
-</style>
