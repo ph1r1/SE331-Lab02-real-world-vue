@@ -15,26 +15,11 @@ defineProps({
 </script>
 
 <template>
-  <div v-if="event">
-    <div id="flashMessage" v-if="message">
+  <div v-if="event" class="my-4">
+    <div class="animate-flashMessage mb-4" v-if="message">
       <h4>{{ message }}</h4>
     </div>
     <p>{{ event.time }} on {{ event.date }} @ {{ event.location }}</p>
     <p>{{ event.description }}</p>
   </div>
 </template>
-
-<style scoped>
-@keyframes yellowfade {
-  from {
-    background: yellow;
-  }
-  to {
-    background: transparent;
-  }
-}
-
-#flashMessage {
-  animation: yellowfade 3s ease-in-out;
-}
-</style>
