@@ -8,10 +8,10 @@ const { message } = storeToRefs(store)
 </script>
 
 <template>
-  <header>
-    <!-- <div id="flashMessage" v-if="message">
+  <header class="max-h-screen leading-normal">
+    <div id="flashMessage" v-if="message">
       <h4>{{ message }}</h4>
-    </div> -->
+    </div>
     <nav>
       <RouterLink :to="{ name: 'event-list' }">Home</RouterLink> |
       <RouterLink :to="{ name: 'about' }">About</RouterLink>
@@ -41,11 +41,6 @@ nav a {
 
 nav a.router-link-exact-active {
   color: #42b983;
-}
-
-header {
-  line-height: 1.5;
-  max-height: 100vh;
 }
 
 .logo {
