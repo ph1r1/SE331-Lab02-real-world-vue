@@ -4,7 +4,6 @@ import type { EventItem } from '@/type'
 import { ref, computed } from 'vue'
 import type { Ref } from 'vue'
 import EventService from '@/services/EventService'
-import NProgress from 'nprogress'
 import { useRouter, onBeforeRouteUpdate } from 'vue-router'
 import type { AxiosResponse } from 'axios'
 
