@@ -12,6 +12,7 @@ import { RouterLink, RouterView } from 'vue-router'
     <!-- <div v-if="message" class="animate-flashMessage">
       <h4 class="text-[20px]">{{ message }}</h4>
     </div> -->
+    <h1>Created by ph1r1</h1>
     <nav class="p-[30px] font-bold text-[#2c3e50]">
       <RouterLink :to="{ name: 'event-list' }" :class="{ 'text-[#42b983]': $route.name === 'event-list' }">Home</RouterLink> |
       <RouterLink :to="{ name: 'about' }" :class="{ 'text-[#42b983]': $route.name === 'about' }">About</RouterLink>
