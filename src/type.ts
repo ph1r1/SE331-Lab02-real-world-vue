@@ -12,3 +12,9 @@ export interface EventItem {
   surname: string
   gpa: number
 }
+
+export interface OrganizerItem {
+  id: number
+  name: string
+  address: string
+}
