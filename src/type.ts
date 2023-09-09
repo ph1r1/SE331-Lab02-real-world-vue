@@ -8,9 +8,6 @@ export interface EventItem {
   time: string
   petsAllowed: boolean
   organizer: string
-  name: string
-  surname: string
-  gpa: number
 }
 
 export interface OrganizerItem {
