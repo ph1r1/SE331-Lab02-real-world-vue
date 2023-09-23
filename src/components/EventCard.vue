@@ -4,6 +4,8 @@
       <div class="p-5 w-[250px] cursor-pointer border border-solid border-[#39495c] mb-[18px] hover:scale-[1.01] hover:shadow-custom">
         <span>@{{ event?.time }} on {{ event?.date }}</span>
         <h4>{{ event?.title }}</h4>
+        <span>by</span>
+        <h5>{{event?.organizer.name}}</h5>
       </div>
     </div>
   </RouterLink>
