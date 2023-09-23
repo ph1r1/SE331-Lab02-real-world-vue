@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type { EventItem } from '@/type'
+import { type EventOrganizer, type EventItem } from '@/type'
+import OrganizerService from '@/services/OrganizerService'
 import { ref } from 'vue'
 import EventService from '@/services/EventService'
 import { useRouter } from 'vue-router'
@@ -38,13 +39,21 @@ function saveEvent() {
       router.push({ name: 'network-error' })
     })
 }
+
+const organizers = ref<EventOrganizer[]>([])
+OrganizerService.getOrganizers()
+  .then((response) => {
+    organizers.value = response.data
+  })
+  .catch(() => {
+    router.push({ name: 'network-error' })
+  })
 </script>
 
 <template>
   <div>
     <h1>Create an event</h1>
     <form @submit.prevent="saveEvent">
-
       <BaseInput v-model="event.category" type="text" label="Category" />
 
       <BaseInput v-model="event.title" type="text" label="Title" />
@@ -52,6 +61,19 @@ function saveEvent() {
       <BaseInput v-model="event.description" type="text" label="Description" />
 
       <BaseInput v-model="event.location" type="text" label="Location" />
+
+      <h3>Who is your organizer?</h3>
+      <label>Select an Organizer</label>
+      <select v-model="event.organizer.id">
+        <option
+          v-for="option in organizers"
+          :value="option.id"
+          :key="option.id"
+          :selected="option.id === event.organizer.id"
+        >
+          {{ option.name }}
+        </option>
+      </select>
 
       <button type="submit">Submit</button>
     </form>
