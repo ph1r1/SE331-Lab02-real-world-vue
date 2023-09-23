@@ -20,14 +20,3 @@ export interface OrganizerItem {
   name: string
   address: string
 }
-
-// export interface EmptyEventItem {
-//   id: number = null
-//   category: string
-//   title: string
-//   description: string
-//   location: string
-//   date: string = ''
-//   time: string = ''
-//   organizer: EventOrganizer = {id: 0, name: ''}
-// }
