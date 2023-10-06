@@ -20,3 +20,10 @@ export interface OrganizerItem {
   name: string
   address: string
 }
+
+export interface AuctionItem {
+  id: number
+  name: string
+  description: string
+  type: string
+}

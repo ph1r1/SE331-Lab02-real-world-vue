@@ -18,7 +18,8 @@ import { RouterLink, RouterView } from 'vue-router'
       <RouterLink :to="{ name: 'about' }" :class="{ 'text-[#42b983]': $route.name === 'about' }">About</RouterLink> |
       <RouterLink :to="{ name: 'add-event' }" :class="{ 'text-[#42b983]': $route.name === 'add-event' }">New Event</RouterLink> |
       <RouterLink :to="{ name: 'organizer-list' }" :class="{ 'text-[#42b983]': $route.name === 'organizer-list' }">Organizer</RouterLink> |
-      <RouterLink :to="{ name: 'add-organizer' }" :class="{ 'text-[#42b983]': $route.name === 'add-organizer' }">New Organizer</RouterLink>
+      <RouterLink :to="{ name: 'add-organizer' }" :class="{ 'text-[#42b983]': $route.name === 'add-organizer' }">New Organizer</RouterLink> |
+      <RouterLink :to="{ name: 'auction-list' }" :class="{ 'text-[#42b983]': $route.name === 'auction-list' }">Auction</RouterLink>
     </nav>
   </header>
 
