@@ -14,6 +14,10 @@ import OrganizerListView from '../views/OrganizerListView.vue'
 import AddEventView from '@/views/EventFormView.vue'
 import AddOrganizerView from '@/views/OrganizerFormView.vue'
 import AuctionItemListView from '@/views/AuctionItemListView.vue'
+import OrganizerLayoutViewVue from '@/views/organizer/OrganizerLayoutView.vue'
+import { useOrganizerStore } from '@/stores/organizer'
+import OrganizerService from '@/services/OrganizerService'
+import OrganizerDetailViewVue from '@/views/organizer/OrganizerDetailView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -97,6 +101,37 @@ const router = createRouter({
           path: 'register',
           name: 'event-register',
           component: EventRegisterView,
+          props: true
+        }
+      ]
+    },{
+      path: '/organizer/:id',
+      name: 'organizer-layout',
+      component: OrganizerLayoutViewVue,
+      beforeEnter: (to) => {
+        const id: number = parseInt(to.params.id as string)
+        const organizerStore = useOrganizerStore()
+        OrganizerService.getOrganizerById(id)
+          .then((response) => {
+            organizerStore.setOrganizer(response.data)
+          })
+          .catch((error) => {
+            console.log(error)
+            if (error.response && error.response.status === 404) {
+              return {
+                name: '404-resource',
+                params: { resource: 'organizer' }
+              }
+            } else {
+              return { name: 'network-error' }
+            }
+          })
+      },
+      children: [
+        {
+          path: '',
+          name: 'organizer-detail',
+          component: OrganizerDetailViewVue,
           props: true
         }
       ]

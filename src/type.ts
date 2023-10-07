@@ -19,7 +19,7 @@ export interface EventOrganizer{
 export interface OrganizerItem {
   id: number
   name: string
-  address: string
+  image: string[]
 }
 
 export interface AuctionItem {

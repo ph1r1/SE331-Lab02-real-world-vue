@@ -4,13 +4,14 @@ import { ref } from 'vue'
 import OrganizerService from '@/services/OrganizerService'
 import { useRouter } from 'vue-router'
 import { useMessageStore } from '@/stores/message'
+import ImageUpload from '@/components/ImageUpload.vue'
 
 const store = useMessageStore()
 
 const organizer = ref<OrganizerItem>({
   id: 0,
   name: '',
-  address: '',
+  image: [],
 })
 
 const router = useRouter()
@@ -39,8 +40,8 @@ function saveOrganizer() {
       <label>Name</label>
       <input v-model="organizer.name" type="text" placeholder="Name" class="field" />
 
-      <label>Title</label>
-      <input v-model="organizer.address" type="text" placeholder="Address" class="field" />
+      <h3>The Image of the event</h3>
+      <ImageUpload v-model="organizer.image" :max="1" />
 
       <button type="submit">Submit</button>
     </form>
