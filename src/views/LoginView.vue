@@ -3,17 +3,15 @@ import InputText from '@/components/InputText.vue'
 
 import * as yup from 'yup'
 
-// import { ref } from 'vue'
-
 import { useField, useForm } from 'vee-validate'
 
-const validationSchema = yup.object({
-  email: yup.string().required('The email is required').email('Input must be an email.'),
+import { useAuthStore } from '@/stores/auth'
 
-  password: yup
-    .string()
-    .required('The password is required')
-    .min(6, 'The password must be at least 6 characters.')
+const authStore = useAuthStore()
+
+const validationSchema = yup.object({
+  email: yup.string().required('The email is required'),
+  password: yup.string().required('The password is required')
 })
 
 const { errors, handleSubmit } = useForm({
@@ -21,7 +19,6 @@ const { errors, handleSubmit } = useForm({
 
   initialValues: {
     email: '',
-
     password: ''
   }
 })
@@ -31,7 +28,7 @@ const { value: email } = useField<string>('email')
 const { value: password } = useField<string>('password')
 
 const onSubmit = handleSubmit((values) => {
-  console.log(values)
+  authStore.login(values.email, values.password)
 })
 </script>
 
@@ -56,7 +53,7 @@ const onSubmit = handleSubmit((values) => {
             >Email address</label
           >
 
-          <InputText type="email" v-model="email" :error="errors['email']"></InputText>
+          <InputText type="text" v-model="email" :error="errors['email']"></InputText>
         </div>
 
         <div>
@@ -73,7 +70,7 @@ const onSubmit = handleSubmit((values) => {
           </div>
 
           <div class="mt-2">
-            <InputText v-model="password" type="password" :error="errors['password']" ></InputText>
+            <InputText v-model="password" type="password" :error="errors['password']"></InputText>
           </div>
         </div>
 
