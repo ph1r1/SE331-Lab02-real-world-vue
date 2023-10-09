@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import InputText from '@/components/InputText.vue'
-
 import * as yup from 'yup'
-
 import { useField, useForm } from 'vee-validate'
-
 import { useAuthStore } from '@/stores/auth'
+import { useRouter } from 'vue-router'
+import { useMessageStore } from '@/stores/message'
+import { storeToRefs } from 'pinia'
 
 const authStore = useAuthStore()
+const router = useRouter()
+const messageStore = useMessageStore()
+
+const { message } = storeToRefs(messageStore)
 
 const validationSchema = yup.object({
   email: yup.string().required('The email is required'),
@@ -28,7 +32,18 @@ const { value: email } = useField<string>('email')
 const { value: password } = useField<string>('password')
 
 const onSubmit = handleSubmit((values) => {
-  authStore.login(values.email, values.password)
+  authStore
+    .login(values.email, values.password)
+    .then(() => {
+      router.push({ name: 'event-list' })
+    })
+    .catch(() => {
+      messageStore.updateMessage('could not login')
+
+      setTimeout(() => {
+        messageStore.resetMessage()
+      }, 3000)
+    })
 })
 </script>
 
@@ -44,6 +59,9 @@ const onSubmit = handleSubmit((values) => {
       <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
         Sign in to your account
       </h2>
+      <div class="animate-flashMessage mb-4" v-if="message">
+        <h4>{{ message }}</h4>
+      </div>
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">

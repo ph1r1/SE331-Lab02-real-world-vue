@@ -7,6 +7,8 @@ import App from './App.vue'
 import router from './router'
 import 'nprogress/nprogress.css'
 
+import '@/services/AxiosInterceptorSetup'
+
 const app = createApp(App)
 
 app.use(createPinia())

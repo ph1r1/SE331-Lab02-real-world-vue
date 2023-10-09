@@ -1,16 +1,8 @@
-import axios from 'axios'
-import type { AxiosInstance, AxiosResponse } from 'axios'
 import type { OrganizerItem } from '@/type'
 import type { EventOrganizer } from '@/type'
 
-const apiClient: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL,
-  withCredentials: false,
-  headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json'
-  }
-})
+import apiClient from './AxiosClient'
+import type {  AxiosResponse } from 'axios'
 
 export default {
   getOrganizer(perPage: number, page: number): Promise<AxiosResponse<OrganizerItem[]>> {
