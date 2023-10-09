@@ -18,6 +18,7 @@ import OrganizerLayoutViewVue from '@/views/organizer/OrganizerLayoutView.vue'
 import { useOrganizerStore } from '@/stores/organizer'
 import OrganizerService from '@/services/OrganizerService'
 import OrganizerDetailViewVue from '@/views/organizer/OrganizerDetailView.vue'
+import LoginView from '@/views/LoginView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -60,6 +61,11 @@ const router = createRouter({
       props: (route) => ({
         page: parseInt((route.query?.page as string) || '1')
       })
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginView
     },
     {
       path: '/event/:id',
