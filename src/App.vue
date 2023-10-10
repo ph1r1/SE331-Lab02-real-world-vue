@@ -1,21 +1,30 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-// import { useMessageStore } from './stores/message'
-// import { storeToRefs } from 'pinia'
+import { useMessageStore } from './stores/message'
+import { useAuthStore } from './stores/auth'
+import { storeToRefs } from 'pinia'
+import { useRouter } from 'vue-router'
 
-// const store = useMessageStore()
-// const { message } = storeToRefs(store)
+const store = useMessageStore()
+const authStore = useAuthStore()
+const router = useRouter()
+const { message } = storeToRefs(store)
+
+function logout() {
+  authStore.logout()
+  router.push({ name: 'login' })
+}
 </script>
 
 <template>
   <header class="max-h-screen leading-normal">
-    <!-- <div v-if="message" class="animate-flashMessage">
+    <div v-if="message" class="animate-flashMessage">
       <h4 class="text-[20px]">{{ message }}</h4>
-    </div> -->
+    </div>
     <h1>Created by ph1r1</h1>
     <nav class="p-[30px] font-bold text-[#2c3e50]">
       <nav class="flex">
-        <ul class="flex navbar-nav ml-auto">
+        <ul v-if="!authStore.currentUserName" class="flex navbar-nav ml-auto">
           <li class="nav-item px-2">
             <router-link to="/register" class="nav-link">
               <font-awesome-icon icon="user-plus" /> Sign Up
@@ -26,6 +35,21 @@ import { RouterLink, RouterView } from 'vue-router'
             <router-link to="/login" class="nav-link">
               <font-awesome-icon icon="sign-in-alt" /> Login
             </router-link>
+          </li>
+        </ul>
+        <ul v-if="authStore.currentUserName" class="flex navbar-nav ml-auto">
+          <li class="nav-item px-2">
+            <router-link to="/profile" class="nav-link">
+              <font-awesome-icon icon="user" />
+
+              {{ authStore.currentUserName }}
+            </router-link>
+          </li>
+
+          <li class="nav-item px-2">
+            <a class="nav-link hover:cursor-pointer" @click="logout">
+              <font-awesome-icon icon="sign-out-alt" /> LogOut
+            </a>
           </li>
         </ul>
       </nav>
