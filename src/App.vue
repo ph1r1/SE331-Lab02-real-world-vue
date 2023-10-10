@@ -14,11 +14,49 @@ import { RouterLink, RouterView } from 'vue-router'
     </div> -->
     <h1>Created by ph1r1</h1>
     <nav class="p-[30px] font-bold text-[#2c3e50]">
-      <RouterLink :to="{ name: 'event-list' }" :class="{ 'text-[#42b983]': $route.name === 'event-list' }">Home</RouterLink> |
-      <RouterLink :to="{ name: 'about' }" :class="{ 'text-[#42b983]': $route.name === 'about' }">About</RouterLink> |
-      <RouterLink :to="{ name: 'add-event' }" :class="{ 'text-[#42b983]': $route.name === 'add-event' }">New Event</RouterLink> |
-      <RouterLink :to="{ name: 'organizer-list' }" :class="{ 'text-[#42b983]': $route.name === 'organizer-list' }">Organizer</RouterLink> |
-      <RouterLink :to="{ name: 'add-organizer' }" :class="{ 'text-[#42b983]': $route.name === 'add-organizer' }">New Organizer</RouterLink> |
+      <nav class="flex">
+        <ul class="flex navbar-nav ml-auto">
+          <li class="nav-item px-2">
+            <router-link to="/register" class="nav-link">
+              <font-awesome-icon icon="user-plus" /> Sign Up
+            </router-link>
+          </li>
+
+          <li class="nav-item px-2">
+            <router-link to="/login" class="nav-link">
+              <font-awesome-icon icon="sign-in-alt" /> Login
+            </router-link>
+          </li>
+        </ul>
+      </nav>
+      <RouterLink
+        :to="{ name: 'event-list' }"
+        :class="{ 'text-[#42b983]': $route.name === 'event-list' }"
+        >Home</RouterLink
+      >
+      |
+      <RouterLink :to="{ name: 'about' }" :class="{ 'text-[#42b983]': $route.name === 'about' }"
+        >About</RouterLink
+      >
+      |
+      <RouterLink
+        :to="{ name: 'add-event' }"
+        :class="{ 'text-[#42b983]': $route.name === 'add-event' }"
+        >New Event</RouterLink
+      >
+      |
+      <RouterLink
+        :to="{ name: 'organizer-list' }"
+        :class="{ 'text-[#42b983]': $route.name === 'organizer-list' }"
+        >Organizer</RouterLink
+      >
+      |
+      <RouterLink
+        :to="{ name: 'add-organizer' }"
+        :class="{ 'text-[#42b983]': $route.name === 'add-organizer' }"
+        >New Organizer</RouterLink
+      >
+      |
       <!-- <RouterLink :to="{ name: 'auction-list' }" :class="{ 'text-[#42b983]': $route.name === 'auction-list' }">Auction</RouterLink> -->
     </nav>
   </header>
