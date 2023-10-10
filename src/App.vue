@@ -14,9 +14,9 @@ const token = localStorage.getItem('token')
 const user = localStorage.getItem('user')
 
 if (token && user) {
-   authStore.reload(token,JSON.parse(user))  
-}else{
-   authStore.logout()
+  authStore.reload(token, JSON.parse(user))
+} else {
+  authStore.logout()
 }
 
 function logout() {
@@ -68,17 +68,12 @@ function logout() {
         >Home</RouterLink
       >
       |
-      <RouterLink :to="{ name: 'about' }" :class="{ 'text-[#42b983]': $route.name === 'about' }"
-        >About</RouterLink
-      >
-      |
-      <RouterLink
-        :to="{ name: 'add-event' }"
-        :class="{ 'text-[#42b983]': $route.name === 'add-event' }"
-        >New Event</RouterLink
-      >
-      |
-      <RouterLink
+      <RouterLink to="/about">About</RouterLink>
+      <span v-if="authStore.isAdmin()">
+        | <RouterLink :to="{ name: 'add-event' }">New Event</RouterLink>
+      </span>
+
+      <!-- <RouterLink
         :to="{ name: 'organizer-list' }"
         :class="{ 'text-[#42b983]': $route.name === 'organizer-list' }"
         >Organizer</RouterLink
@@ -88,8 +83,8 @@ function logout() {
         :to="{ name: 'add-organizer' }"
         :class="{ 'text-[#42b983]': $route.name === 'add-organizer' }"
         >New Organizer</RouterLink
-      >
-      |
+      > -->
+
       <!-- <RouterLink :to="{ name: 'auction-list' }" :class="{ 'text-[#42b983]': $route.name === 'auction-list' }">Auction</RouterLink> -->
     </nav>
   </header>
